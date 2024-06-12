@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache
+Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <definition name="baseLayout"
+                template="/WEB-INF/layout/base.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="sidebar"
+                       value="/WEB-INF/layout/sidebar.jsp" />
+        <put-attribute name="header"
+                       value="/WEB-INF/layout/header.jsp" />
+        <put-attribute name="filter" value = "" />
+        <put-attribute name="content" value="" />
+        <put-attribute name="pagination" value = "" />
+        <put-attribute name="footer"
+                       value="/WEB-INF/layout/footer.jsp" />
+    </definition>
+    <definition name="index" extends="baseLayout">
+        <put-attribute name="title" value="Trang chủ" />
+        <put-attribute name="content" value="/WEB-INF/pages/index.jsp" />
+    </definition>
+    <definition name="users" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị người dùng" />
+        <put-attribute name="filter" value = "/WEB-INF/filters/user.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/users.jsp" />
+        <put-attribute name="pagination" value = "/WEB-INF/paginator/user.jsp" />
+    </definition>
+    <definition name="user" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật người dùng" />
+        <put-attribute name="content" value="/WEB-INF/pages/user.jsp" />
+    </definition>
+    <definition name="landlords" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị chủ nhà trọ" />
+        <put-attribute name="filter" value = "/WEB-INF/filters/landlord.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/landlords.jsp" />
+        <put-attribute name="pagination" value = "/WEB-INF/paginator/landlord.jsp" />
+    </definition>
+    <definition name="landlord" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật chủ nhà trọ" />
+        <put-attribute name="content" value="/WEB-INF/pages/landlord.jsp" />
+    </definition>
+    <definition name="provinces" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị tỉnh, thành phố" />
+        <put-attribute name="filter" value = "/WEB-INF/filters/province.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/provinces.jsp" />
+        <put-attribute name="pagination" value = "/WEB-INF/paginator/province.jsp" />
+    </definition>
+    <definition name="province" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật tỉnh, thành phố" />
+        <put-attribute name="content" value="/WEB-INF/pages/province.jsp" />
+    </definition>
+    <definition name="districts" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị quận, huyện" />
+        <put-attribute name="filter" value = "/WEB-INF/filters/district.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/districts.jsp" />
+        <put-attribute name="pagination" value = "/WEB-INF/paginator/district.jsp" />
+    </definition>
+    <definition name="district" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật quận, huyện" />
+        <put-attribute name="content" value="/WEB-INF/pages/district.jsp" />
+    </definition>
+    
+</tiles-definitions>
+
