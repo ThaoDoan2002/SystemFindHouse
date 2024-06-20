@@ -46,6 +46,7 @@ public class Typeimage implements Serializable {
     @Size(min = 1, max = 4)
     @Column(name = "type")
     private String type;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "typeId")
     private Set<Imageprofile> imageprofileSet;
 

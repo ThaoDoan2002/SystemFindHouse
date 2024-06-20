@@ -6,11 +6,12 @@ package com.dtt.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.dtt.formatter.DistrictFormatter;
 import com.dtt.formatter.LandlordFormatter;
-import com.dtt.formatter.ProvinceFormatter;
+import com.dtt.formatter.PostFormatter;
+import com.dtt.formatter.RoomFormatter;
+import com.dtt.formatter.TypeImageFormatter;
 import com.dtt.formatter.UserFormatter;
-import com.dtt.formatter.WardsFormatter;
+import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
+
 
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
@@ -41,7 +43,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan(basePackages = {
     "com.dtt.controllers",
     "com.dtt.repositories",
-    "com.dtt.services"
+    "com.dtt.services",
+    "com.dtt.components"
 })
 @PropertySource("classpath:configs.properties")
 public class WebAppContextConfig implements WebMvcConfigurer {
@@ -79,6 +82,8 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public Validator getValidator() {
         return validator();
     }
+    
+    
 
     @Bean
     public CommonsMultipartResolver multipartResolver() {
@@ -100,9 +105,11 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new UserFormatter());
-        registry.addFormatter(new ProvinceFormatter());
-        registry.addFormatter(new DistrictFormatter());
-        registry.addFormatter(new WardsFormatter());
         registry.addFormatter(new LandlordFormatter());
+        registry.addFormatter(new TypeImageFormatter());
+        registry.addFormatter(new PostFormatter());
+        registry.addFormatter(new RoomFormatter());
     }
+    
+    
 }

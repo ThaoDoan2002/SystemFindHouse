@@ -16,9 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -44,12 +46,17 @@ public class Imageprofile implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "image")
     private String image;
+    
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Typeimage typeId;
+    
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
+    
+    @Transient
+    private MultipartFile file;
 
     public Imageprofile() {
     }
@@ -118,6 +125,20 @@ public class Imageprofile implements Serializable {
     @Override
     public String toString() {
         return "com.dtt.pojo.Imageprofile[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
     
 }

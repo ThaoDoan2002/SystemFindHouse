@@ -40,26 +40,94 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Thêm/Cập nhật chủ nhà trọ" />
         <put-attribute name="content" value="/WEB-INF/pages/landlord.jsp" />
     </definition>
-    <definition name="provinces" extends="baseLayout">
-        <put-attribute name="title" value="Quản trị tỉnh, thành phố" />
-        <put-attribute name="filter" value = "/WEB-INF/filters/province.jsp" />
-        <put-attribute name="content" value="/WEB-INF/pages/provinces.jsp" />
-        <put-attribute name="pagination" value = "/WEB-INF/paginator/province.jsp" />
-    </definition>
-    <definition name="province" extends="baseLayout">
-        <put-attribute name="title" value="Thêm/Cập nhật tỉnh, thành phố" />
-        <put-attribute name="content" value="/WEB-INF/pages/province.jsp" />
-    </definition>
-    <definition name="districts" extends="baseLayout">
-        <put-attribute name="title" value="Quản trị quận, huyện" />
-        <put-attribute name="filter" value = "/WEB-INF/filters/district.jsp" />
-        <put-attribute name="content" value="/WEB-INF/pages/districts.jsp" />
-        <put-attribute name="pagination" value = "/WEB-INF/paginator/district.jsp" />
-    </definition>
-    <definition name="district" extends="baseLayout">
-        <put-attribute name="title" value="Thêm/Cập nhật quận, huyện" />
-        <put-attribute name="content" value="/WEB-INF/pages/district.jsp" />
-    </definition>
     
+    <definition name="typeImages" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị loại hình ảnh" />
+        <put-attribute name="content" value="/WEB-INF/pages/typeImages.jsp" />
+    </definition>
+    <definition name="typeImage" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật loại hình ảnh" />
+        <put-attribute name="content" value="/WEB-INF/pages/typeImage.jsp" />
+    </definition>
+    <definition name="imageProfiles" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị hình ảnh chủ trọ" />
+        <put-attribute name="filter" value = "/WEB-INF/filters/imageProfile.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/imageProfiles.jsp" />
+        <put-attribute name="pagination" value = "/WEB-INF/paginator/imageProfile.jsp" />
+    </definition>
+    <definition name="imageProfile" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật hình ảnh chủ trọ" />
+        <put-attribute name="content" value="/WEB-INF/pages/imageProfile.jsp" />
+    </definition>
+    <definition name="posts" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị bài đăng" />
+        <put-attribute name="filter" value = "/WEB-INF/filters/post.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/posts.jsp" />
+        <put-attribute name="pagination" value = "/WEB-INF/paginator/post.jsp" />
+    </definition>
+    <definition name="post" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật bài đăng" />
+        <put-attribute name="content" value="/WEB-INF/pages/post.jsp" />
+    </definition>
+    <definition name="tenantPosts" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị bài đăng người thuê trọ" />
+        <put-attribute name="filter" value = "/WEB-INF/filters/tenantPost.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/tenantPosts.jsp" />
+        <put-attribute name="pagination" value = "/WEB-INF/paginator/tenantPost.jsp" />
+    </definition>
+    <definition name="tenantPost" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật bài đăng người thuê trọ" />
+        <put-attribute name="content" value="/WEB-INF/pages/tenantPost.jsp" />
+    </definition>
+    <definition name="rooms" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị phòng trọ" />
+        <put-attribute name="filter" value = "/WEB-INF/filters/room.jsp" />
+        <put-attribute name="content" value="/WEB-INF/pages/rooms.jsp" />
+        <put-attribute name="pagination" value = "/WEB-INF/paginator/room.jsp" />
+    </definition>
+    <definition name="room" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật phòng trọ" />
+        <put-attribute name="content" value="/WEB-INF/pages/room.jsp" />
+    </definition>
+    <definition name="landlordPosts" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị bài đăng chủ trọ" />
+        <put-attribute name="filter" value = "" />
+        <put-attribute name="content" value="/WEB-INF/pages/landlordPosts.jsp" />
+        <put-attribute name="pagination" value = "/WEB-INF/paginator/landlordPost.jsp" />
+    </definition>
+    <definition name="landlordPost" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật bài đăng chủ trọ" />
+        <put-attribute name="content" value="/WEB-INF/pages/landlordPost.jsp" />
+    </definition>
+    <definition name="roomImages" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị hình ảnh trọ" />
+        <put-attribute name="filter" value = "" />
+        <put-attribute name="content" value="/WEB-INF/pages/roomImages.jsp" />
+        <put-attribute name="pagination" value = "/WEB-INF/paginator/roomImage.jsp" />
+    </definition>
+    <definition name="roomImage" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật hình ảnh trọ" />
+        <put-attribute name="content" value="/WEB-INF/pages/roomImage.jsp" />
+    </definition>
+    <definition name="comments" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị bình luận" />
+        <put-attribute name="filter" value = "" />
+        <put-attribute name="content" value="/WEB-INF/pages/comments.jsp" />
+        <put-attribute name="pagination" value = "/WEB-INF/paginator/comment.jsp" />
+    </definition>
+    <definition name="comment" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật bình luận" />
+        <put-attribute name="content" value="/WEB-INF/pages/comment.jsp" />
+    </definition>
+    <definition name="follows" extends="baseLayout">
+        <put-attribute name="title" value="Quản trị lượt theo dõi" />
+        <put-attribute name="filter" value = "" />
+        <put-attribute name="content" value="/WEB-INF/pages/follows.jsp" />
+        <put-attribute name="pagination" value = "/WEB-INF/paginator/follow.jsp" />
+    </definition>
+    <definition name="follow" extends="baseLayout">
+        <put-attribute name="title" value="Thêm/Cập nhật lượt theo dõi" />
+        <put-attribute name="content" value="/WEB-INF/pages/follow.jsp" />
+    </definition>
 </tiles-definitions>
 

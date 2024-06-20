@@ -24,7 +24,7 @@ public class ApiLandlordController {
     @Autowired
     private LandlordService landlordSvc;
 
-    @DeleteMapping("/api/landlords/{landlordId}")
+    @DeleteMapping("/delete/landlords/{landlordId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(Model model, @PathVariable(value = "landlordId") int id) {
         this.landlordSvc.deleteLandlord(id);

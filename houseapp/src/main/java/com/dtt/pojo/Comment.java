@@ -64,6 +64,7 @@ public class Comment implements Serializable {
     private User userId;
 
     public Comment() {
+        this.createdAt = new Date();
     }
 
     public Comment(Integer id) {
@@ -147,5 +148,5 @@ public class Comment implements Serializable {
     public String toString() {
         return "com.dtt.pojo.Comment[ id=" + id + " ]";
     }
-    
+
 }

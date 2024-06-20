@@ -5,7 +5,6 @@
 package com.dtt.formatter;
 
 import com.dtt.pojo.Landlord;
-import com.dtt.pojo.Province;
 import java.text.ParseException;
 import java.util.Locale;
 import org.springframework.format.Formatter;

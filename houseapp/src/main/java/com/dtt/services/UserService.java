@@ -5,6 +5,7 @@
 package com.dtt.services;
 
 import com.dtt.pojo.Landlord;
+import com.dtt.pojo.Post;
 import com.dtt.pojo.User;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,12 @@ public interface UserService extends UserDetailsService {
     void deleteUser(int id);
 
     User getUserByUsername(String username);
+
+    List<User> getUsers();
+
+    boolean authUser(String username, String password);
+
+    List<User> getFollowers(int lid);
 
 //    List<Landlord> getLandlords();
 }

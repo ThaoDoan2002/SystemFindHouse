@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,8 @@ public class UserRepositoryImpl implements UserRepository {
     private LocalSessionFactoryBean factory;
     @Autowired
     private Environment env;
+    @Autowired
+    private BCryptPasswordEncoder passEncoder;
 
     @Override
     public List<User> getUsers(Map<String, String> params) {
@@ -85,9 +88,12 @@ public class UserRepositoryImpl implements UserRepository {
         Session s = this.factory.getObject().getCurrentSession();
         if (u != null && u.getId() != null && u.getId() > 0) {
             s.update(u);
+
         } else {
             s.save(u);
+
         }
+
     }
 
     @Override
@@ -105,11 +111,12 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getUserByUsername(String username) {
+
         Session s = this.factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM User WHERE username=:un and isActive = :ac");
         q.setParameter("un", username);
         q.setParameter("ac", true);
-
+        System.out.println(q.getSingleResult());
         return (User) q.getSingleResult();
     }
 
@@ -123,5 +130,26 @@ public class UserRepositoryImpl implements UserRepository {
 //
 //        return landlords;
 //    }
+    @Override
+    public List<User> getUsers() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("User.findAll");
+        return q.getResultList();
+    }
+
+    @Override
+    public boolean authUser(String username, String password) {
+        User u = this.getUserByUsername(username);
+        return this.passEncoder.matches(password, u.getPassword());
+    }
+
+    @Override
+    public List<User> getFollowers(int lid) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query<User> q = s.createQuery("SELECT u FROM Follow f JOIN f.followerId u WHERE f.landlordId.id = :landlordId", User.class);
+        q.setParameter("landlordId", lid);
+        System.out.println(q.getResultList());
+        return q.getResultList();
+    }
 
 }

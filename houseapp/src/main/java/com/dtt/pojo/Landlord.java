@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -31,9 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Landlord.findAll", query = "SELECT l FROM Landlord l"),
     @NamedQuery(name = "Landlord.findById", query = "SELECT l FROM Landlord l WHERE l.id = :id"),
-    @NamedQuery(name = "Landlord.findByFullName", query = "SELECT l FROM Landlord l WHERE l.fullName = :fullName"),
     @NamedQuery(name = "Landlord.findByPhoneNumber", query = "SELECT l FROM Landlord l WHERE l.phoneNumber = :phoneNumber"),
-    @NamedQuery(name = "Landlord.findByStreet", query = "SELECT l FROM Landlord l WHERE l.street = :street")})
+    @NamedQuery(name = "Landlord.findByAddress", query = "SELECT l FROM Landlord l WHERE l.address = :address")})
 public class Landlord implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,29 +42,21 @@ public class Landlord implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "full_name")
-    private String fullName;
+    @Pattern(regexp = "^[0-9]{10,11}$")
     @Size(max = 15)
+    @NotNull
     @Column(name = "phone_number")
     private String phoneNumber;
     @Size(max = 255)
-    @Column(name = "street")
-    private String street;
-    @JoinColumn(name = "district_id", referencedColumnName = "id")
-    @ManyToOne
-    private District districtId;
-    @JoinColumn(name = "province_id", referencedColumnName = "id")
-    @ManyToOne
-    private Province provinceId;
+    @NotNull
+    @Column(name = "address")
+    private String address;
+  
+ 
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @OneToOne(optional = false)
     private User userId;
-    @JoinColumn(name = "ward_id", referencedColumnName = "id")
-    @ManyToOne
-    private Ward wardId;
+
 
     public Landlord() {
     }
@@ -73,10 +65,7 @@ public class Landlord implements Serializable {
         this.id = id;
     }
 
-    public Landlord(Integer id, String fullName) {
-        this.id = id;
-        this.fullName = fullName;
-    }
+
 
     public Integer getId() {
         return id;
@@ -86,13 +75,7 @@ public class Landlord implements Serializable {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -102,29 +85,8 @@ public class Landlord implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getStreet() {
-        return street;
-    }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
 
-    public District getDistrictId() {
-        return districtId;
-    }
-
-    public void setDistrictId(District districtId) {
-        this.districtId = districtId;
-    }
-
-    public Province getProvinceId() {
-        return provinceId;
-    }
-
-    public void setProvinceId(Province provinceId) {
-        this.provinceId = provinceId;
-    }
 
     public User getUserId() {
         return userId;
@@ -134,13 +96,7 @@ public class Landlord implements Serializable {
         this.userId = userId;
     }
 
-    public Ward getWardId() {
-        return wardId;
-    }
 
-    public void setWardId(Ward wardId) {
-        this.wardId = wardId;
-    }
 
     @Override
     public int hashCode() {
@@ -165,6 +121,20 @@ public class Landlord implements Serializable {
     @Override
     public String toString() {
         return "com.dtt.pojo.Landlord[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
     }
     
 }

@@ -27,5 +27,11 @@ public interface UserRepository {
 
     User getUserByUsername(String username);
 
+    List<User> getUsers();
+
+    boolean authUser(String username, String password);
+    
+    List<User> getFollowers(int lid);
+
 //    List<Landlord> getLandlords();
 }

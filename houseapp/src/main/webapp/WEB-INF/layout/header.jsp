@@ -14,16 +14,11 @@
 
                 <c:choose>
                     <c:when test="${pageContext.request.userPrincipal.name == null}">
-                        <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                            <img src="<c:url value="/images/account.png"/> " class="avatar img-fluid" alt="">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end rounded">
-                            <a href="<c:url value="/login"/>" class="dropdown-item">Đăng nhập</a>
-                        </div>
+                          <a class="btn btn-primary" href="<c:url value="/login"/>" class="dropdown-item" >Đăng nhập</a>
                     </c:when>
                     <c:when test="${pageContext.request.userPrincipal.name != null}">
                         <span class="m-2">
-                            Xin chào ${pageContext.request.userPrincipal.name}    </span>
+                            Xin chào <span  style="color:red">${pageContext.request.userPrincipal.name}</span>    </span>
                         <a href="<c:url value="/profile"/>" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
                             <img src="<c:url value="/images/account.png"/> " class="avatar img-fluid" alt="">
                         </a>

@@ -4,6 +4,8 @@
  */
 package com.dtt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
@@ -15,10 +17,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.Type;
 
 /**
  *
@@ -33,6 +41,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Tenantpost.findByAddress", query = "SELECT t FROM Tenantpost t WHERE t.address = :address"),
     @NamedQuery(name = "Tenantpost.findByLatitude", query = "SELECT t FROM Tenantpost t WHERE t.latitude = :latitude"),
     @NamedQuery(name = "Tenantpost.findByLongitude", query = "SELECT t FROM Tenantpost t WHERE t.longitude = :longitude")})
+
 public class Tenantpost implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,13 +53,32 @@ public class Tenantpost implements Serializable {
     @Size(max = 255)
     @Column(name = "address")
     private String address;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+
     @Column(name = "latitude")
     private BigDecimal latitude;
+
     @Column(name = "longitude")
     private BigDecimal longitude;
+
+    @NotNull
+    @Column(name = "max_occupants")
+    private BigDecimal maxOccupants;
+    @NotNull
+    @Column(name = "min_price")
+    private BigDecimal minPrice;
+     @NotNull
+    @Column(name = "max_price")
+    private BigDecimal maxPrice;
+    @NotNull
+    @Column(name = "area")
+    private BigDecimal area;
+    @NotNull
+    @Column(name = "scope")
+    private BigDecimal scope;
+
     @JoinColumn(name = "post_id", referencedColumnName = "id")
     @OneToOne(optional = false)
+
     private Post postId;
 
     public Tenantpost() {
@@ -74,22 +102,6 @@ public class Tenantpost implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public BigDecimal getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(BigDecimal latitude) {
-        this.latitude = latitude;
-    }
-
-    public BigDecimal getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(BigDecimal longitude) {
-        this.longitude = longitude;
     }
 
     public Post getPostId() {
@@ -124,5 +136,103 @@ public class Tenantpost implements Serializable {
     public String toString() {
         return "com.dtt.pojo.Tenantpost[ id=" + id + " ]";
     }
-    
+
+    /**
+     * @return the latitude
+     */
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    /**
+     * @param latitude the latitude to set
+     */
+    public void setLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
+    }
+
+    /**
+     * @return the longitude
+     */
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    /**
+     * @param longitude the longitude to set
+     */
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
+    }
+
+    /**
+     * @return the maxOccupants
+     */
+    public BigDecimal getMaxOccupants() {
+        return maxOccupants;
+    }
+
+    /**
+     * @param maxOccupants the maxOccupants to set
+     */
+    public void setMaxOccupants(BigDecimal maxOccupants) {
+        this.maxOccupants = maxOccupants;
+    }
+
+    /**
+     * @return the minPrice
+     */
+    public BigDecimal getMinPrice() {
+        return minPrice;
+    }
+
+    /**
+     * @param minPrice the minPrice to set
+     */
+    public void setMinPrice(BigDecimal minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    /**
+     * @return the maxPrice
+     */
+    public BigDecimal getMaxPrice() {
+        return maxPrice;
+    }
+
+    /**
+     * @param maxPrice the maxPrice to set
+     */
+    public void setMaxPrice(BigDecimal maxPrice) {
+        this.maxPrice = maxPrice;
+    }
+
+    /**
+     * @return the area
+     */
+    public BigDecimal getArea() {
+        return area;
+    }
+
+    /**
+     * @param area the area to set
+     */
+    public void setArea(BigDecimal area) {
+        this.area = area;
+    }
+
+    /**
+     * @return the scope
+     */
+    public BigDecimal getScope() {
+        return scope;
+    }
+
+    /**
+     * @param scope the scope to set
+     */
+    public void setScope(BigDecimal scope) {
+        this.scope = scope;
+    }
+
 }

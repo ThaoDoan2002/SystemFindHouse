@@ -6,6 +6,7 @@ package com.dtt.services.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.dtt.components.MailSevice;
 import com.dtt.pojo.Landlord;
 import com.dtt.pojo.User;
 import com.dtt.repositories.UserRepository;
@@ -40,6 +41,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private MailSevice mailService;
+
     @Override
     public List<User> getUsers(Map<String, String> params) {
         return this.userRepo.getUsers(params);
@@ -54,14 +58,21 @@ public class UserServiceImpl implements UserService {
     public void addOrUpdateUser(User u, String currAv) {
 
         if (u.getId() == null && u.getFile().isEmpty()) {
-            u.setAvatar("https://res.cloudinary.com/dzrgeifj0/image/upload/v1711094956/lt2_uhupqc.jpg");
+            u.setAvatar("https://res.cloudinary.com/dzrgeifj0/image/upload/v1718816349/d97bbb08017ac2309307f0822e63d082_hjiuky.jpg");
         } else if (u.getId() != null && u.getFile().isEmpty()) {
             u.setAvatar(currAv);
         }
 
         if (u.getId() == null) {
-            if (u.getRole().equals("LANDLORD")) {
+            if (u.getRole().equals("ROLE_LANDLORD")) {
                 u.setIsActive(false);
+                User admin = this.userRepo.getUserByUsername("admin");
+                boolean result = mailService.sendEmail(admin.getEmail(), "LANDLORD REGISTER", "Vui lòng xác nhận tài khoản chủ trọ. Tên đăng nhập: " + u.getUsername());
+                if (result) {
+                    System.out.println(" Registration successful! A confirmation email has been sent to " + u.getEmail());
+                } else {
+                    System.out.println("Error!");
+                }
             } else {
                 u.setIsActive(true);
             }
@@ -74,11 +85,18 @@ public class UserServiceImpl implements UserService {
                 u.setPassword(hashedPassword);
             }
             if (!u.getRole().equals(existU.getRole())) {
-                if (u.getRole().equals("LANDLORD")) {
+                if (u.getRole().equals("ROLE_LANDLORD")) {
                     u.setIsActive(false);
                 }
             }
-
+            if (u.getIsActive() != existU.getIsActive() && u.getIsActive() == true && u.getRole().equals("ROLE_LANDLORD")) {
+                boolean result = mailService.sendEmail(u.getEmail(), "ACCEPTED ACCOUNT", "Tài khoản của bạn đã được duyệt! ");
+                if (result) {
+                    System.out.println(" Registration successful! A confirmation email has been sent to " + u.getEmail());
+                } else {
+                    System.out.println("Error!");
+                }
+            }
         }
 
         // Băm mật khẩu
@@ -131,5 +149,21 @@ public class UserServiceImpl implements UserService {
 //    public List<Landlord> getLandlords() {
 //        return this.userRepo.getLandlords();
 //    }
+
+    @Override
+    public List<User> getUsers() {
+        return this.userRepo.getUsers();
+
+    }
+
+    @Override
+    public boolean authUser(String username, String password) {
+        return this.userRepo.authUser(username, password);
+    }
+
+    @Override
+    public List<User> getFollowers(int lid) {
+        return this.userRepo.getFollowers(lid);
+    }
 
 }

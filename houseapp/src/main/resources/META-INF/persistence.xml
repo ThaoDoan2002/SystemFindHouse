@@ -14,10 +14,7 @@
     <class>com.dtt.pojo.Post</class>
     <class>com.dtt.pojo.Imageprofile</class>
     <class>com.dtt.pojo.Typeimage</class>
-    <class>com.dtt.pojo.Province</class>
     <class>com.dtt.pojo.Wards</class>
-    <class>com.dtt.pojo.District</class>
-    <class>com.dtt.pojo.Ward</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ehouses?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

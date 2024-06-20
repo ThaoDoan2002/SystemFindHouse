@@ -9,6 +9,7 @@ function deleteAPI(url) {
                 alert("ERROR");
             }
         }).catch(error => {
+            
             alert("ERROR: " + error);
         });
     }

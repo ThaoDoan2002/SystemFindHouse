@@ -5,7 +5,6 @@
 package com.dtt.repositories.impl;
 
 import com.dtt.pojo.Landlord;
-import com.dtt.pojo.Province;
 import com.dtt.pojo.User;
 import com.dtt.repositories.LandlordRepository;
 import java.util.ArrayList;
@@ -43,48 +42,48 @@ public class LandlordRepositoryImpl implements LandlordRepository {
     @Override
     public List<Landlord> getLandlords(Map<String, String> params) {
         Session s = factory.getObject().getCurrentSession();
-        CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<Landlord> q = b.createQuery(Landlord.class);
-        Root r = q.from(Landlord.class);
-        q.select(r);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        String kw = params.get("kw");
-        if (kw != null && !kw.isEmpty()) {
-            predicates.add(b.like(r.get("fullName"), String.format("%%%s%%", kw)));
-        }
-        String province = params.get("province");
-        String district = params.get("district");
-        String ward = params.get("ward");
-        if (r.get("provinceId") != null && province != null && !province.isEmpty()) {
-            Join<Landlord, Province> provinceJoin = r.join("provinceId");
-            if (province != null && !province.isEmpty()) {
-                predicates.add(b.equal(provinceJoin.get("id").as(Integer.class), Integer.parseInt(province)));
-            }
-            if (district != null && !district.isEmpty()) {
-                predicates.add(b.equal(r.get("districtId"), Integer.parseInt(district)));
-            }
-            if (ward != null && !ward.isEmpty()) {
-                predicates.add(b.equal(r.get("wardId"), Integer.parseInt(ward)));
-            }
-        }
-
-        q.where(predicates.toArray(Predicate[]::new));
-        q.orderBy(b.desc(r.get("id")));
-
-        Query query = s.createQuery(q);
-        System.out.println(query.getResultList());
-
-        String p = params.get("page");
-        if (p != null && !p.isEmpty()) {
-            int pageSize = Integer.parseInt(env.getProperty("landlords.PAGE_SIZE").toString());
-            int start = (Integer.parseInt(p) - 1) * pageSize;
-            query.setFirstResult(start);
-            query.setMaxResults(pageSize);//lay so phan tu
-        }
-
-        return query.getResultList();
+//        CriteriaBuilder b = s.getCriteriaBuilder();
+//        CriteriaQuery<Landlord> q = b.createQuery(Landlord.class);
+//        Root r = q.from(Landlord.class);
+//        q.select(r);
+//
+//        List<Predicate> predicates = new ArrayList<>();
+//
+//        String kw = params.get("kw");
+//        if (kw != null && !kw.isEmpty()) {
+//            predicates.add(b.like(r.get("fullName"), String.format("%%%s%%", kw)));
+//        }
+//        String province = params.get("province");
+////        String district = params.get("district");
+//        String ward = params.get("ward");
+//        if (r.get("provinceId") != null && province != null && !province.isEmpty()) {
+////            Join<Landlord, Province> provinceJoin = r.join("provinceId");
+//            if (province != null && !province.isEmpty()) {
+////                predicates.add(b.equal(provinceJoin.get("id").as(Integer.class), Integer.parseInt(province)));
+//            }
+////            if (district != null && !district.isEmpty()) {
+////                predicates.add(b.equal(r.get("districtId"), Integer.parseInt(district)));
+//            }
+//            if (ward != null && !ward.isEmpty()) {
+//                predicates.add(b.equal(r.get("wardId"), Integer.parseInt(ward)));
+//            }
+//        }
+//
+//        q.where(predicates.toArray(Predicate[]::new));
+//        q.orderBy(b.desc(r.get("id")));
+//
+//        Query query = s.createQuery(q);
+//        System.out.println(query.getResultList());
+//
+//        String p = params.get("page");
+//        if (p != null && !p.isEmpty()) {
+//            int pageSize = Integer.parseInt(env.getProperty("imageProfile.PAGE_SIZE").toString());
+//            int start = (Integer.parseInt(p) - 1) * pageSize;
+//            query.setFirstResult(start);
+//            query.setMaxResults(pageSize);//lay so phan tu
+//        }
+        Query q = s.createNamedQuery("Landlord.findAll");
+        return q.getResultList();
     }
 
     @Override
@@ -103,7 +102,7 @@ public class LandlordRepositoryImpl implements LandlordRepository {
         System.out.println(id);
         Query q = s.createNamedQuery("Landlord.findById");
         q.setParameter("id", id);
-        
+
         System.out.println((Landlord) q.getSingleResult());
         return (Landlord) q.getSingleResult();
     }
@@ -145,10 +144,9 @@ public class LandlordRepositoryImpl implements LandlordRepository {
         // Sửa lại truy vấn HQL
         String hql = "SELECT u FROM User u LEFT JOIN Landlord l ON u.id = l.userId.id WHERE l.userId.id IS NULL AND u.role = :role";
         Query<User> query = s.createQuery(hql, User.class);
-        query.setParameter("role", "LANDLORD");
+        query.setParameter("role", "ROLE_LANDLORD");
 
         users = query.getResultList();
-        System.out.println(users);
         return users;
     }
 

@@ -4,6 +4,7 @@
  */
 package com.dtt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -56,23 +57,33 @@ public class Room implements Serializable {
     @Column(name = "name")
     private String name;
     @Size(max = 255)
+    @NotNull
     @Column(name = "address")
     private String address;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @NotNull
     @Column(name = "latitude")
     private BigDecimal latitude;
+    @NotNull
     @Column(name = "longitude")
     private BigDecimal longitude;
+    @NotNull
     @Column(name = "max_occupants")
     private Integer maxOccupants;
-    @Size(max = 50)
+    @NotNull
     @Column(name = "price")
-    private String price;
+    private BigDecimal price;
+    @NotNull
+    @Column(name = "area")
+    private BigDecimal area;
+    
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomId")
     private Set<Image> imageSet;
+
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "roomId")
     private Landlordpost landlordpost;
 
@@ -136,11 +147,11 @@ public class Room implements Serializable {
         this.maxOccupants = maxOccupants;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -193,5 +204,19 @@ public class Room implements Serializable {
     public String toString() {
         return "com.dtt.pojo.Room[ id=" + id + " ]";
     }
-    
+
+    /**
+     * @return the area
+     */
+    public BigDecimal getArea() {
+        return area;
+    }
+
+    /**
+     * @param area the area to set
+     */
+    public void setArea(BigDecimal area) {
+        this.area = area;
+    }
+
 }

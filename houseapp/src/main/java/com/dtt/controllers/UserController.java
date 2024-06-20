@@ -4,6 +4,7 @@
  */
 package com.dtt.controllers;
 
+import com.dtt.components.MailSevice;
 import com.dtt.pojo.User;
 import com.dtt.services.UserService;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +35,7 @@ public class UserController {
     @Autowired
     private Environment env;
 
+
     @GetMapping("/users")
     public String list(Model m, @RequestParam Map<String, String> params) {
 
@@ -43,20 +46,20 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/user")
+    @GetMapping("/add/user")
     public String create(Model model) {
         model.addAttribute("user", new User());
         return "user";
     }
 
-    @PostMapping("/user")
+    @PostMapping("/add/user")
     public String create(@ModelAttribute(value = "user") User u, @RequestParam(required = false, name = "currentAvatar") String currAv) {//bindingresult tat ca loi se duoc luu vao bien nay
         this.userSvc.addOrUpdateUser(u, currAv);
         return "redirect:/users";
 
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/update/users/{userId}")
     public String update(Model model, @PathVariable(value = "userId") int id) {
         model.addAttribute("user", this.userSvc.getUserById(id));
         return "user";

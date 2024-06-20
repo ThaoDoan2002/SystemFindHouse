@@ -39,9 +39,11 @@ public class Follow implements Serializable {
     private Integer id;
     @Column(name = "followed")
     private Boolean followed;
+    
     @JoinColumn(name = "follower_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User followerId;
+    
     @JoinColumn(name = "landlord_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User landlordId;

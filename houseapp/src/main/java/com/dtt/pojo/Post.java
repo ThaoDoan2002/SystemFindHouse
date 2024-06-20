@@ -4,7 +4,9 @@
  */
 package com.dtt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -67,17 +69,25 @@ public class Post implements Serializable {
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+    
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "postId")
+    @JsonIgnore
     private Landlordpost landlordpost;
+    
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
+    
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "postId")
     private Set<Comment> commentSet;
+    
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "postId")
+    @JsonIgnore
     private Tenantpost tenantpost;
 
     public Post() {
+        this.createdAt = new Date();
     }
 
     public Post(Integer id) {
@@ -187,5 +197,5 @@ public class Post implements Serializable {
     public String toString() {
         return "com.dtt.pojo.Post[ id=" + id + " ]";
     }
-    
+
 }
